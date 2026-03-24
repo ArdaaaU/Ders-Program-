@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vize Sınav Takvimi</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+        :root {
+            --primary: #4F46E5;
+            --primary-light: #EEF2FF;
+            --text-dark: #111827;
+            --text-muted: #6B7280;
+            --bg: #F3F4F6;
+            --card-bg: #FFFFFF;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg);
+            color: var(--text-dark);
+            margin: 0;
+            padding: 2rem 1rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .header h1 {
+            margin: 0;
+            font-size: 2.2rem;
+            color: var(--primary);
+            letter-spacing: -0.5px;
+        }
+
+        .header p {
+            color: var(--text-muted);
+            margin-top: 0.5rem;
+            font-weight: 500;
+            font-size: 1.1rem;
+        }
+
+        /* YENİ EKLENEN BUTON STİLLERİ */
+        .nav-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 2.5rem;
+        }
+
+        .nav-btn {
+            text-decoration: none;
+            padding: 0.7rem 1.5rem;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: all 0.2s ease;
+            background-color: var(--card-bg);
+            color: var(--text-muted);
+            border: 1px solid #E5E7EB;
+        }
+
+        .nav-btn:hover {
+            background-color: var(--primary-light);
+            color: var(--primary);
+            transform: translateY(-2px);
+        }
+
+        .nav-btn.active {
+            background-color: var(--primary);
+            color: white;
+            border-color: var(--primary);
+            box-shadow: 0 4px 6px -1px rgba(79, 70, 229, 0.3);
+        }
+        /* YENİ EKLENEN BUTON STİLLERİ BİTİŞ */
+
+        .timeline {
+            display: grid;
+            gap: 1.5rem;
+            width: 100%;
+            max-width: 600px;
+        }
+
+        .card {
+            background-color: var(--card-bg);
+            border-radius: 16px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            border-left: 6px solid var(--primary);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+
+        .datetime {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+            border-bottom: 1px solid #E5E7EB;
+            padding-bottom: 0.75rem;
+        }
+
+        .date {
+            font-weight: 600;
+            color: var(--primary);
+            background-color: var(--primary-light);
+            padding: 0.4rem 0.8rem;
+            border-radius: 8px;
+            font-size: 0.9rem;
+        }
+
+        .time {
+            font-weight: 700;
+            font-size: 1.2rem;
+            color: var(--text-dark);
+            background-color: #F3F4F6;
+            padding: 0.3rem 0.6rem;
+            border-radius: 6px;
+        }
+
+        .time.rektorluk {
+            background-color: #FEF08A; 
+            color: #854D0E;
+        }
+
+        .course {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin: 0 0 0.5rem 0;
+            color: #1F2937;
+        }
+
+        .details {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.4rem;
+        }
+
+        .details span {
+            display: flex;
+            align-items: center;
+        }
+        
+        .details span::before {
+            content: "•";
+            color: var(--primary);
+            font-weight: bold;
+            margin-right: 6px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <h1>Web Tasarım ve Kodlama</h1>
+        <p>2025 - 2026 Bahar Yarıyılı Vize Sınav Takvimi</p>
+    </div>
+
+    <div class="nav-buttons">
+        <a href="index.html" class="nav-btn">Ders Programı</a>
+        <a href="index2.html" class="nav-btn active">Vize Sınav Takvimi</a>
+    </div>
+
+    <div class="timeline">
+        
+        <div class="card">
+            <div class="datetime">
+                <div class="date">06.04.2026 Pazartesi</div>
+                <div class="time">14:30</div>
+            </div>
+            <h2 class="course">Veritabanı Yönetim Sist.</h2>
+            <div class="details">
+                <span>Öğr. Gör. Dr. Sümeyye KORKMAZ SARICALA</span>
+                <span>Gözetmen: Y. ALKAN</span>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="datetime">
+                <div class="date">07.04.2026 Salı</div>
+                <div class="time">12:00</div>
+            </div>
+            <h2 class="course">Mobil Programlama</h2>
+            <div class="details">
+                <span>Öğr. Gör. Dr. Sümeyye KORKMAZ SARICALA</span>
+                <span>Gözetmen: B. TÜRKER PALAMUTÇUOĞLU</span>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="datetime">
+                <div class="date">08.04.2026 Çarşamba</div>
+                <div class="time">11:00</div>
+            </div>
+            <h2 class="course">Duyarlı Web Tasarımı</h2>
+            <div class="details">
+                <span>Öğr. Gör. Tuğrul DURAK</span>
+                <span>Gözetmen: S. ÇAVUŞOĞLU</span>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="datetime">
+                <div class="date">09.04.2026 Perşembe</div>
+                <div class="time rektorluk" title="Sınav Saati Rektörlük Tarafından Belirlenen">13:00</div>
+            </div>
+            <h2 class="course">ADS / PORTFOLYO TASARIMI</h2>
+            <div class="details">
+                <span>Öğr. Gör. Tuğrul DURAK</span>
+                <span>Gözetmen: S. ÇAVUŞOĞLU</span>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="datetime">
+                <div class="date">09.04.2026 Perşembe</div>
+                <div class="time">14:30</div>
+            </div>
+            <h2 class="course">Ağ Temelleri</h2>
+            <div class="details">
+                <span>Öğr. Gör. Tuğrul DURAK</span>
+                <span>Gözetmen: G. E. KAHYA</span>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="datetime">
+                <div class="date">10.04.2026 Cuma</div>
+                <div class="time">10:00</div>
+            </div>
+            <h2 class="course">İleri Programlama</h2>
+            <div class="details">
+                <span>Öğr. Gör. G. Ege KAHYA</span>
+                <span>Gözetmen: A. YETİŞ</span>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="datetime">
+                <div class="date">10.04.2026 Cuma</div>
+                <div class="time">14:30</div>
+            </div>
+            <h2 class="course">SEO ve Analitik</h2>
+            <div class="details">
+                <span>Öğr. Gör. G. Ege KAHYA</span>
+                <span>Gözetmen: A. YETİŞ</span>
+            </div>
+        </div>
+
+    </div>
+
+</body>
+</html>

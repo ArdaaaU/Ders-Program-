@@ -14,13 +14,13 @@
             --border-color: #e2e8f0;
             
             /* Derslere Özel Vurgu Renkleri */
-            --color-db: #3b82f6;      /* Mavi */
-            --color-mobile: #10b981;  /* Zümrüt */
-            --color-web: #8b5cf6;     /* Mor */
-            --color-network: #f59e0b; /* Kehribar */
-            --color-seo: #f43f5e;     /* Gül */
-            --color-portfolio: #06b6d4;/* Camgöbeği */
-            --color-advanced: #6366f1; /* İndigo */
+            --color-db: #3b82f6;      
+            --color-mobile: #10b981;  
+            --color-web: #8b5cf6;     
+            --color-network: #f59e0b; 
+            --color-seo: #f43f5e;     
+            --color-portfolio: #06b6d4;
+            --color-advanced: #6366f1; 
         }
 
         * {
@@ -48,10 +48,44 @@
             text-align: center;
             font-size: 1.75rem;
             font-weight: 700;
-            margin-bottom: 2.5rem;
+            margin-bottom: 1rem;
             color: var(--text-main);
             letter-spacing: -0.025em;
         }
+
+        /* YENİ EKLENEN BUTON STİLLERİ */
+        .nav-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 3rem;
+        }
+
+        .nav-btn {
+            text-decoration: none;
+            padding: 0.7rem 1.5rem;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: all 0.2s ease;
+            background-color: var(--bg-card);
+            color: var(--text-muted);
+            border: 1px solid var(--border-color);
+        }
+
+        .nav-btn:hover {
+            background-color: #f1f5f9;
+            color: var(--text-main);
+            transform: translateY(-2px);
+        }
+
+        .nav-btn.active {
+            background-color: var(--color-db);
+            color: white;
+            border-color: var(--color-db);
+            box-shadow: 0 4px 6px -1px rgba(59, 130, 246, 0.3);
+        }
+        /* YENİ EKLENEN BUTON STİLLERİ BİTİŞ */
 
         .grid-container {
             display: grid;
@@ -94,7 +128,6 @@
             border-color: #cbd5e1;
         }
 
-        /* Sol Taraftaki Zarif Vurgu Çizgisi */
         .class-card::before {
             content: '';
             position: absolute;
@@ -143,7 +176,6 @@
             gap: 0.35rem;
         }
 
-        /* İkonlar için basit SVG'ler veya Emojiler */
         .icon {
             font-size: 0.9rem;
             opacity: 0.8;
@@ -155,6 +187,11 @@
 
 <div class="schedule-wrapper">
     <h1 class="header-title">Haftalık Ders Programı</h1>
+    
+    <div class="nav-buttons">
+        <a href="index.html" class="nav-btn active">Ders Programı</a>
+        <a href="index2.html" class="nav-btn">Vize Sınav Takvimi</a>
+    </div>
     
     <div class="grid-container">
         
