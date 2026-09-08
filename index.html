@@ -1,318 +1,861 @@
 <!DOCTYPE html>
-<html lang="tr">
+<html lang="tr" data-theme="light">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Modern & Sade Ders Programı</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <title>2. Sınıf Haftalık Ders Programı | Web Tasarım ve Kodlama</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet">
+
+    <script>
+        // Sayfa yüklenirken tema titremesini (FOUC) önleme
+        (function () {
+            const savedTheme = localStorage.getItem('wtk_theme');
+            const systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            const theme = savedTheme ? savedTheme : (systemDark ? 'dark' : 'light');
+            document.documentElement.setAttribute('data-theme', theme);
+        })();
+    </script>
+
     <style>
         :root {
+            /* Açık Tema Değişkenleri */
             --bg-body: #f8fafc;
             --bg-card: #ffffff;
+            --bg-card-hover: #ffffff;
+            --bg-muted: #f1f5f9;
+            --bg-tag: #f1f5f9;
             --text-main: #0f172a;
             --text-muted: #64748b;
+            --text-subtle: #94a3b8;
             --border-color: #e2e8f0;
-            
+            --border-hover: #cbd5e1;
+            --header-gradient: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+            --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.03);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
+            --shadow-lg: 0 10px 25px -5px rgba(0, 0, 0, 0.06), 0 8px 10px -6px rgba(0, 0, 0, 0.03);
+            --nav-bg: #e2e8f0;
+            --nav-btn-bg: #ffffff;
+            --nav-btn-text: #475569;
+            --today-indicator: #3b82f6;
+            --today-bg: rgba(59, 130, 246, 0.04);
+
             /* Derslere Özel Vurgu Renkleri */
-            --color-db: #3b82f6;      
-            --color-mobile: #10b981;  
-            --color-web: #8b5cf6;     
-            --color-network: #f59e0b; 
-            --color-seo: #f43f5e;     
-            --color-portfolio: #06b6d4;
-            --color-advanced: #6366f1; 
+            --color-ux: #8b5cf6;
+            /* Kullanıcı Deneyimi Tasarımı */
+            --color-web: #3b82f6;
+            /* Web Tabanlı Kodlama */
+            --color-cms: #f59e0b;
+            /* İçerik Yönetimi */
+            --color-net: #10b981;
+            /* İnternet Programcılığı */
+            --color-ent: #06b6d4;
+            /* Dijital Girişimcilik */
+            --color-ai: #ec4899;
+            /* Yapay Zeka Etiği */
+            --color-free: #94a3b8;
+            /* Serbest Gün */
+        }
+
+        [data-theme="dark"] {
+            /* Koyu Tema Değişkenleri */
+            --bg-body: #090d16;
+            --bg-card: #131b2e;
+            --bg-card-hover: #18223a;
+            --bg-muted: #1c263d;
+            --bg-tag: #1c263d;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --text-subtle: #64748b;
+            --border-color: #1e2a44;
+            --border-hover: #2e3f66;
+            --header-gradient: linear-gradient(135deg, #f8fafc 0%, #cbd5e1 100%);
+            --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.3);
+            --shadow-md: 0 4px 10px -1px rgba(0, 0, 0, 0.4);
+            --shadow-lg: 0 12px 30px -5px rgba(0, 0, 0, 0.5);
+            --nav-bg: #131b2e;
+            --nav-btn-bg: #1c263d;
+            --nav-btn-text: #94a3b8;
+            --today-indicator: #60a5fa;
+            --today-bg: rgba(96, 165, 250, 0.08);
         }
 
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
+            transition: background-color 0.25s ease, border-color 0.25s ease, color 0.2s ease, box-shadow 0.25s ease;
         }
 
         body {
-            font-family: 'Inter', sans-serif;
+            font-family: 'Plus Jakarta Sans', sans-serif;
             background-color: var(--bg-body);
             color: var(--text-main);
+            min-height: 100vh;
             display: flex;
-            justify-content: center;
-            padding: 3rem 1.5rem;
+            flex-direction: column;
+            align-items: center;
+            padding: 2.5rem 1.25rem 4rem;
             line-height: 1.5;
+            -webkit-font-smoothing: antialiased;
         }
 
-        .schedule-wrapper {
-            max-width: 1200px;
+        .schedule-container {
+            max-width: 1400px;
             width: 100%;
         }
 
-        .header-title {
-            text-align: center;
-            font-size: 1.75rem;
-            font-weight: 700;
-            margin-bottom: 1rem;
-            color: var(--text-main);
-            letter-spacing: -0.025em;
+        /* Üst Bar: Tema Butonu & Başlık */
+        .top-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+            gap: 1rem;
         }
 
-        /* YENİ EKLENEN BUTON STİLLERİ */
-        .nav-buttons {
+        .badge-semester {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.4rem 0.9rem;
+            background-color: var(--bg-muted);
+            border: 1px solid var(--border-color);
+            border-radius: 9999px;
+            font-size: 0.8125rem;
+            font-weight: 600;
+            color: var(--text-muted);
+        }
+
+        .badge-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background-color: #10b981;
+            box-shadow: 0 0 0 2px rgba(16, 185, 129, 0.2);
+            animation: pulse-dot 2s infinite;
+        }
+
+        @keyframes pulse-dot {
+
+            0%,
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+
+            50% {
+                opacity: 0.6;
+                transform: scale(0.9);
+            }
+        }
+
+        /* Tema Butonu */
+        .theme-toggle-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.6rem;
+            background-color: var(--bg-card);
+            color: var(--text-main);
+            border: 1px solid var(--border-color);
+            padding: 0.5rem 1rem;
+            border-radius: 9999px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            cursor: pointer;
+            box-shadow: var(--shadow-sm);
+            user-select: none;
+        }
+
+        .theme-toggle-btn:hover {
+            border-color: var(--border-hover);
+            transform: translateY(-1px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .theme-icon-box {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            font-size: 0.9rem;
+        }
+
+        /* Başlık Alanı */
+        .header-section {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .main-title {
+            font-size: 2.25rem;
+            font-weight: 800;
+            letter-spacing: -0.035em;
+            color: var(--text-main);
+            margin-bottom: 0.4rem;
+        }
+
+        .subtitle {
+            font-size: 1.05rem;
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+
+        .author-tag {
+            font-size: 0.875rem;
+            color: var(--text-subtle);
+            font-weight: 600;
+            margin-top: 0.35rem;
+            letter-spacing: 0.02em;
+        }
+
+        /* Navigasyon Butonları (Segmented Control) */
+        .nav-container {
             display: flex;
             justify-content: center;
-            gap: 1rem;
-            margin-bottom: 3rem;
+            margin-bottom: 2.5rem;
         }
 
-        .nav-btn {
-            text-decoration: none;
-            padding: 0.7rem 1.5rem;
-            border-radius: 8px;
-            font-weight: 600;
-            font-size: 0.95rem;
-            transition: all 0.2s ease;
-            background-color: var(--bg-card);
-            color: var(--text-muted);
+        .nav-segmented {
+            display: inline-flex;
+            background-color: var(--nav-bg);
+            padding: 0.35rem;
+            border-radius: 14px;
+            gap: 0.25rem;
             border: 1px solid var(--border-color);
         }
 
-        .nav-btn:hover {
-            background-color: #f1f5f9;
+        .nav-tab {
+            text-decoration: none;
+            padding: 0.65rem 1.4rem;
+            border-radius: 10px;
+            font-weight: 600;
+            font-size: 0.925rem;
+            color: var(--nav-btn-text);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.2s ease;
+        }
+
+        .nav-tab:hover {
             color: var(--text-main);
-            transform: translateY(-2px);
         }
 
-        .nav-btn.active {
-            background-color: var(--color-db);
-            color: white;
-            border-color: var(--color-db);
-            box-shadow: 0 4px 6px -1px rgba(59, 130, 246, 0.3);
+        .nav-tab.active {
+            background-color: var(--nav-btn-bg);
+            color: var(--text-main);
+            box-shadow: var(--shadow-sm);
         }
-        /* YENİ EKLENEN BUTON STİLLERİ BİTİŞ */
 
-        .grid-container {
+        /* Günler Izgarası (Grid) */
+        .schedule-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-            gap: 1.5rem;
+            grid-template-columns: repeat(5, minmax(0, 1fr));
+            gap: 1.25rem;
             align-items: start;
         }
 
+        /* Gün Sütunu */
         .day-column {
             display: flex;
             flex-direction: column;
             gap: 1rem;
+            background: transparent;
+            border-radius: 16px;
+            padding: 0.25rem;
+            position: relative;
+        }
+
+        .day-column.today .day-header {
+            border-color: var(--today-indicator);
+            background: var(--today-bg);
         }
 
         .day-header {
-            font-size: 0.875rem;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            color: var(--text-muted);
-            padding-bottom: 0.5rem;
-            border-bottom: 2px solid var(--border-color);
-            margin-bottom: 0.5rem;
-        }
-
-        .class-card {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.85rem 1rem;
             background-color: var(--bg-card);
             border: 1px solid var(--border-color);
             border-radius: 12px;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .day-title {
+            font-size: 0.95rem;
+            font-weight: 700;
+            color: var(--text-main);
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+
+        .today-pill {
+            display: none;
+            font-size: 0.7rem;
+            font-weight: 700;
+            background: #3b82f6;
+            color: #ffffff;
+            padding: 0.15rem 0.45rem;
+            border-radius: 999px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .day-column.today .today-pill {
+            display: inline-block;
+        }
+
+        .class-count {
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: var(--text-muted);
+            background-color: var(--bg-tag);
+            padding: 0.2rem 0.5rem;
+            border-radius: 6px;
+        }
+
+        /* Kart Stilleri */
+        .course-card {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 14px;
             padding: 1.25rem;
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
-            transition: all 0.2s ease;
+            box-shadow: var(--shadow-sm);
             position: relative;
             overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            gap: 0.85rem;
         }
 
-        .class-card:hover {
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05);
-            transform: translateY(-2px);
-            border-color: #cbd5e1;
+        .course-card:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-lg);
+            border-color: var(--border-hover);
         }
 
-        .class-card::before {
+        /* Kart Sol Vurgu Çubuğu */
+        .course-card::before {
             content: '';
             position: absolute;
             left: 0;
             top: 0;
             bottom: 0;
-            width: 4px;
+            width: 5px;
+            border-radius: 4px 0 0 4px;
         }
 
-        .class-card.db::before { background-color: var(--color-db); }
-        .class-card.mobile::before { background-color: var(--color-mobile); }
-        .class-card.web::before { background-color: var(--color-web); }
-        .class-card.network::before { background-color: var(--color-network); }
-        .class-card.seo::before { background-color: var(--color-seo); }
-        .class-card.portfolio::before { background-color: var(--color-portfolio); }
-        .class-card.advanced::before { background-color: var(--color-advanced); }
+        .course-card.card-ux::before {
+            background-color: var(--color-ux);
+        }
 
-        .time {
-            font-size: 0.75rem;
-            font-weight: 600;
-            color: var(--text-muted);
-            margin-bottom: 0.5rem;
+        .course-card.card-web::before {
+            background-color: var(--color-web);
+        }
+
+        .course-card.card-cms::before {
+            background-color: var(--color-cms);
+        }
+
+        .course-card.card-net::before {
+            background-color: var(--color-net);
+        }
+
+        .course-card.card-ent::before {
+            background-color: var(--color-ent);
+        }
+
+        .course-card.card-ai::before {
+            background-color: var(--color-ai);
+        }
+
+        .course-card.card-free::before {
+            background-color: var(--color-free);
+        }
+
+        /* Kart Üst Bilgileri: Saat & Süre */
+        .card-meta-top {
             display: flex;
+            justify-content: space-between;
             align-items: center;
-            gap: 0.25rem;
+            gap: 0.5rem;
         }
 
-        .course-title {
-            font-size: 1rem;
-            font-weight: 600;
-            margin-bottom: 0.75rem;
+        .time-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.35rem;
+            font-size: 0.8125rem;
+            font-weight: 700;
             color: var(--text-main);
+            background-color: var(--bg-muted);
+            padding: 0.3rem 0.6rem;
+            border-radius: 8px;
+            letter-spacing: -0.01em;
         }
 
-        .details {
+        .duration-pill {
+            font-size: 0.725rem;
+            font-weight: 600;
+            padding: 0.2rem 0.5rem;
+            border-radius: 6px;
+        }
+
+        .card-ux .duration-pill {
+            background: rgba(139, 92, 246, 0.12);
+            color: #8b5cf6;
+        }
+
+        .card-web .duration-pill {
+            background: rgba(59, 130, 246, 0.12);
+            color: #3b82f6;
+        }
+
+        .card-cms .duration-pill {
+            background: rgba(245, 158, 11, 0.12);
+            color: #d97706;
+        }
+
+        .card-net .duration-pill {
+            background: rgba(16, 185, 129, 0.12);
+            color: #059669;
+        }
+
+        .card-ent .duration-pill {
+            background: rgba(6, 182, 212, 0.12);
+            color: #0891b2;
+        }
+
+        .card-ai .duration-pill {
+            background: rgba(236, 72, 153, 0.12);
+            color: #db2777;
+        }
+
+        [data-theme="dark"] .card-ux .duration-pill {
+            color: #a78bfa;
+        }
+
+        [data-theme="dark"] .card-web .duration-pill {
+            color: #60a5fa;
+        }
+
+        [data-theme="dark"] .card-cms .duration-pill {
+            color: #fbbf24;
+        }
+
+        [data-theme="dark"] .card-net .duration-pill {
+            color: #34d399;
+        }
+
+        [data-theme="dark"] .card-ent .duration-pill {
+            color: #22d3ee;
+        }
+
+        [data-theme="dark"] .card-ai .duration-pill {
+            color: #f472b6;
+        }
+
+        /* Ders Başlığı */
+        .course-title {
+            font-size: 1.05rem;
+            font-weight: 700;
+            color: var(--text-main);
+            line-height: 1.35;
+        }
+
+        /* Bilgi Satırları */
+        .card-details {
             display: flex;
             flex-direction: column;
-            gap: 0.25rem;
+            gap: 0.45rem;
+            border-top: 1px dashed var(--border-color);
+            padding-top: 0.75rem;
+            margin-top: 0.15rem;
+        }
+
+        .detail-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
             font-size: 0.8125rem;
             color: var(--text-muted);
         }
 
-        .detail-item {
+        .detail-item-left {
             display: flex;
             align-items: center;
+            gap: 0.4rem;
+        }
+
+        .detail-icon {
+            font-size: 0.95rem;
+            opacity: 0.85;
+        }
+
+        .classroom-badge {
+            font-size: 0.75rem;
+            font-weight: 700;
+            background-color: var(--bg-muted);
+            color: var(--text-main);
+            padding: 0.2rem 0.5rem;
+            border-radius: 6px;
+            border: 1px solid var(--border-color);
+        }
+
+        /* Boş / Dinlenme Günü Kartı (Pazartesi) */
+        .free-day-card {
+            background-color: var(--bg-card);
+            border: 1px dashed var(--border-color);
+            border-radius: 14px;
+            padding: 2.25rem 1.25rem;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.75rem;
+            color: var(--text-muted);
+        }
+
+        .free-day-icon {
+            font-size: 2.2rem;
+            margin-bottom: 0.25rem;
+            opacity: 0.9;
+        }
+
+        .free-day-title {
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--text-main);
+        }
+
+        .free-day-desc {
+            font-size: 0.825rem;
+            line-height: 1.4;
+            color: var(--text-muted);
+        }
+
+        /* Alt Bilgi */
+        .footer {
+            margin-top: 3.5rem;
+            text-align: center;
+            font-size: 0.85rem;
+            color: var(--text-subtle);
+            display: flex;
+            flex-direction: column;
             gap: 0.35rem;
         }
 
-        .icon {
-            font-size: 0.9rem;
-            opacity: 0.8;
+        /* Mobil & Tablet Uyumluluğu */
+        @media (max-width: 1180px) {
+            .schedule-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
         }
 
+        @media (max-width: 768px) {
+            body {
+                padding: 1.5rem 1rem 3rem;
+            }
+
+            .main-title {
+                font-size: 1.75rem;
+            }
+
+            .subtitle {
+                font-size: 0.925rem;
+            }
+
+            .top-bar {
+                justify-content: center;
+            }
+
+            .schedule-grid {
+                grid-template-columns: 1fr;
+                gap: 1.25rem;
+            }
+
+            .nav-segmented {
+                width: 100%;
+            }
+
+            .nav-tab {
+                flex: 1;
+                justify-content: center;
+                padding: 0.65rem 0.75rem;
+                font-size: 0.85rem;
+            }
+        }
     </style>
 </head>
+
 <body>
 
-<div class="schedule-wrapper">
-    <h1 class="header-title">Haftalık Ders Programı</h1>
-    
-    <div class="nav-buttons">
-        <a href="index.html" class="nav-btn active">Ders Programı</a>
-        <a href="index2.html" class="nav-btn">Final Sınav Takvimi</a>
+    <div class="schedule-container">
+
+        <!-- Üst Kontrol Alanı -->
+        <div class="top-bar">
+            <div class="badge-semester">
+                <span class="badge-dot"></span>
+                <span>Güz Dönemi • 2. Sınıf</span>
+            </div>
+
+            <button id="theme-toggle" class="theme-toggle-btn" aria-label="Temayı Değiştir">
+                <span class="theme-icon-box" id="theme-icon">🌙</span>
+                <span id="theme-text">Koyu Mod</span>
+            </button>
+        </div>
+
+        <!-- Başlık Bölümü -->
+        <header class="header-section">
+            <h1 class="main-title">Haftalık Ders Programı</h1>
+            <p class="subtitle">Web Tasarım ve Kodlama Programı • 2. Sınıf</p>
+            <p class="author-tag">Made By Arda Utancak</p>
+        </header>
+
+        <!-- Navigasyon Sekmeleri -->
+        <div class="nav-container">
+            <nav class="nav-segmented" aria-label="Sayfa Gezintisi">
+                <a href="index.html" class="nav-tab active">
+                    <span>📅</span>
+                    <span>Ders Programı</span>
+                </a>
+                <a href="index2.html" class="nav-tab">
+                    <span>📝</span>
+                    <span>Vize Takvimi</span>
+                </a>
+            </nav>
+        </div>
+
+        <!-- Haftalık Ders Izgarası -->
+        <main class="schedule-grid">
+
+            <!-- PAZARTESİ -->
+            <section class="day-column" data-day="1">
+                <div class="day-header">
+                    <span class="day-title">
+                        <span>Pazartesi</span>
+                        <span class="today-pill">Bugün</span>
+                    </span>
+                    <span class="class-count">Ders Yok</span>
+                </div>
+
+                <div class="free-day-card">
+                    <span class="free-day-icon">☕</span>
+                    <h2 class="free-day-title">Serbest Gün</h2>
+                    <p class="free-day-desc">Pazartesi günü için ders bulunmamaktadır. Dinlenme ve bireysel proje
+                        çalışma günü.</p>
+                </div>
+            </section>
+
+            <!-- SALI -->
+            <section class="day-column" data-day="2">
+                <div class="day-header">
+                    <span class="day-title">
+                        <span>Salı</span>
+                        <span class="today-pill">Bugün</span>
+                    </span>
+                    <span class="class-count">1 Ders • 3 Saat</span>
+                </div>
+
+                <article class="course-card card-ux">
+                    <div class="card-meta-top">
+                        <span class="time-badge">🕒 13:30 - 16:05</span>
+                        <span class="duration-pill">3 Saat (5-7)</span>
+                    </div>
+                    <h2 class="course-title">Kullanıcı Deneyimi Tasarımı</h2>
+                    <div class="card-details">
+                        <div class="detail-row">
+                            <span class="detail-item-left">
+                                <span class="detail-icon">👤</span>
+                                <span>S. KORKMAZ</span>
+                            </span>
+                            <span class="classroom-badge">LAB 114</span>
+                        </div>
+                    </div>
+                </article>
+            </section>
+
+            <!-- ÇARŞAMBA -->
+            <section class="day-column" data-day="3">
+                <div class="day-header">
+                    <span class="day-title">
+                        <span>Çarşamba</span>
+                        <span class="today-pill">Bugün</span>
+                    </span>
+                    <span class="class-count">2 Ders • 8 Saat</span>
+                </div>
+
+                <!-- Web Tabanlı Kodlama -->
+                <article class="course-card card-web">
+                    <div class="card-meta-top">
+                        <span class="time-badge">🕒 09:00 - 12:30</span>
+                        <span class="duration-pill">4 Saat (1-4)</span>
+                    </div>
+                    <h2 class="course-title">Web Tabanlı Kodlama</h2>
+                    <div class="card-details">
+                        <div class="detail-row">
+                            <span class="detail-item-left">
+                                <span class="detail-icon">👤</span>
+                                <span>S. KORKMAZ</span>
+                            </span>
+                            <span class="classroom-badge">LAB 114</span>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- İçerik Yönetimi -->
+                <article class="course-card card-cms">
+                    <div class="card-meta-top">
+                        <span class="time-badge">🕒 13:30 - 17:00</span>
+                        <span class="duration-pill">4 Saat (5-8)</span>
+                    </div>
+                    <h2 class="course-title">İçerik Yönetimi</h2>
+                    <div class="card-details">
+                        <div class="detail-row">
+                            <span class="detail-item-left">
+                                <span class="detail-icon">👤</span>
+                                <span>T. DURAK</span>
+                            </span>
+                            <span class="classroom-badge">LAB 114</span>
+                        </div>
+                    </div>
+                </article>
+            </section>
+
+            <!-- PERŞEMBE -->
+            <section class="day-column" data-day="4">
+                <div class="day-header">
+                    <span class="day-title">
+                        <span>Perşembe</span>
+                        <span class="today-pill">Bugün</span>
+                    </span>
+                    <span class="class-count">1 Ders • 3 Saat</span>
+                </div>
+
+                <!-- İnternet Programcılığı -->
+                <article class="course-card card-net">
+                    <div class="card-meta-top">
+                        <span class="time-badge">🕒 13:30 - 16:05</span>
+                        <span class="duration-pill">3 Saat (5-7)</span>
+                    </div>
+                    <h2 class="course-title">İnternet Programcılığı</h2>
+                    <div class="card-details">
+                        <div class="detail-row">
+                            <span class="detail-item-left">
+                                <span class="detail-icon">👤</span>
+                                <span>G. E. KAHYA</span>
+                            </span>
+                            <span class="classroom-badge">LAB 111</span>
+                        </div>
+                    </div>
+                </article>
+            </section>
+
+            <!-- CUMA -->
+            <section class="day-column" data-day="5">
+                <div class="day-header">
+                    <span class="day-title">
+                        <span>Cuma</span>
+                        <span class="today-pill">Bugün</span>
+                    </span>
+                    <span class="class-count">2 Ders • 7 Saat</span>
+                </div>
+
+                <!-- Dijital Girişimcilik -->
+                <article class="course-card card-ent">
+                    <div class="card-meta-top">
+                        <span class="time-badge">🕒 09:00 - 12:30</span>
+                        <span class="duration-pill">4 Saat (1-4)</span>
+                    </div>
+                    <h2 class="course-title">Dijital Girişimcilik</h2>
+                    <div class="card-details">
+                        <div class="detail-row">
+                            <span class="detail-item-left">
+                                <span class="detail-icon">👤</span>
+                                <span>T. DURAK</span>
+                            </span>
+                            <span class="classroom-badge">LAB 111</span>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Yapay Zeka Etiği -->
+                <article class="course-card card-ai">
+                    <div class="card-meta-top">
+                        <span class="time-badge">🕒 14:25 - 17:00</span>
+                        <span class="duration-pill">3 Saat (6-8)</span>
+                    </div>
+                    <h2 class="course-title">Yapay Zeka Etiği</h2>
+                    <div class="card-details">
+                        <div class="detail-row">
+                            <span class="detail-item-left">
+                                <span class="detail-icon">👤</span>
+                                <span>G. E. KAHYA</span>
+                            </span>
+                            <span class="classroom-badge">LAB 111</span>
+                        </div>
+                    </div>
+                </article>
+            </section>
+
+        </main>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p>Web Tasarım ve Kodlama • 2. Sınıf (2-A / 2-B)</p>
+            <p>Derslikler: BİL. LAB. 114 ve BİL. LAB. 111</p>
+        </footer>
+
     </div>
-    
-    <div class="grid-container">
-        
-        <div class="day-column">
-            <div class="day-header">Pazartesi</div>
-            <div class="class-card db">
-                <div class="time"><span class="icon">🕒</span> 13:30 - 15:10</div>
-                <div class="course-title">Veritabanı Yönetim Sist.</div>
-                <div class="details">
-                    <div class="detail-item"><span class="icon">👤</span> S. KORKMAZ</div>
-                    <div class="detail-item"><span class="icon">📍</span> BİL. LAB. 114</div>
-                </div>
-            </div>
-        </div>
 
-        <div class="day-column">
-            <div class="day-header">Salı</div>
-            <div class="class-card mobile">
-                <div class="time"><span class="icon">🕒</span> 09:00 - 10:40</div>
-                <div class="course-title">Mobil Programlama</div>
-                <div class="details">
-                    <div class="detail-item"><span class="icon">👤</span> S. KORKMAZ</div>
-                    <div class="detail-item"><span class="icon">📍</span> BİL. LAB. 114</div>
-                </div>
-            </div>
-            <div class="class-card db">
-                <div class="time"><span class="icon">🕒</span> 10:50 - 12:30</div>
-                <div class="course-title">Veritabanı Yönetim Sist.</div>
-                <div class="details">
-                    <div class="detail-item"><span class="icon">👤</span> S. KORKMAZ</div>
-                    <div class="detail-item"><span class="icon">📍</span> BİL. LAB. 114</div>
-                </div>
-            </div>
-        </div>
+    <script>
+        // Tema Yönetimi
+        const themeToggleBtn = document.getElementById('theme-toggle');
+        const themeIcon = document.getElementById('theme-icon');
+        const themeText = document.getElementById('theme-text');
 
-        <div class="day-column">
-            <div class="day-header">Çarşamba</div>
-            <div class="class-card web">
-                <div class="time"><span class="icon">🕒</span> 09:00 - 10:40</div>
-                <div class="course-title">Duyarlı Web Tasarımı</div>
-                <div class="details">
-                    <div class="detail-item"><span class="icon">👤</span> T. DURAK</div>
-                    <div class="detail-item"><span class="icon">📍</span> BİL. LAB. 114</div>
-                </div>
-            </div>
-            <div class="class-card mobile">
-                <div class="time"><span class="icon">🕒</span> 10:50 - 12:30</div>
-                <div class="course-title">Mobil Programlama</div>
-                <div class="details">
-                    <div class="detail-item"><span class="icon">👤</span> S. KORKMAZ</div>
-                    <div class="detail-item"><span class="icon">📍</span> BİL. LAB. 114</div>
-                </div>
-            </div>
-            <div class="class-card network">
-                <div class="time"><span class="icon">🕒</span> 13:30 - 15:10</div>
-                <div class="course-title">Ağ Temelleri</div>
-                <div class="details">
-                    <div class="detail-item"><span class="icon">👤</span> T. DURAK</div>
-                    <div class="detail-item"><span class="icon">📍</span> AMFİ III</div>
-                </div>
-            </div>
-            <div class="class-card seo">
-                <div class="time"><span class="icon">🕒</span> 15:20 - 17:00</div>
-                <div class="course-title">SEO ve Analitik</div>
-                <div class="details">
-                    <div class="detail-item"><span class="icon">👤</span> G. E. KAHYA</div>
-                    <div class="detail-item"><span class="icon">📍</span> AMFİ III</div>
-                </div>
-            </div>
-        </div>
+        function updateThemeUI(theme) {
+            if (theme === 'dark') {
+                themeIcon.textContent = '☀️';
+                themeText.textContent = 'Açık Mod';
+            } else {
+                themeIcon.textContent = '🌙';
+                themeText.textContent = 'Koyu Mod';
+            }
+        }
 
-        <div class="day-column">
-            <div class="day-header">Perşembe</div>
-            <div class="class-card web">
-                <div class="time"><span class="icon">🕒</span> 10:50 - 12:30</div>
-                <div class="course-title">Duyarlı Web Tasarımı</div>
-                <div class="details">
-                    <div class="detail-item"><span class="icon">👤</span> T. DURAK</div>
-                    <div class="detail-item"><span class="icon">📍</span> BİL. LAB. 111</div>
-                </div>
-            </div>
-            <div class="class-card portfolio">
-                <div class="time"><span class="icon">🕒</span> 13:30 - 15:10</div>
-                <div class="course-title">ADS - Portfolyo Tasarımı</div>
-                <div class="details">
-                    <div class="detail-item"><span class="icon">👤</span> T. DURAK</div>
-                    <div class="detail-item"><span class="icon">📍</span> AMFİ III</div>
-                </div>
-            </div>
-        </div>
+        // Başlangıç durumu güncelleme
+        const currentTheme = document.documentElement.getAttribute('data-theme') || 'light';
+        updateThemeUI(currentTheme);
 
-        <div class="day-column">
-            <div class="day-header">Cuma</div>
-            <div class="class-card network">
-                <div class="time"><span class="icon">🕒</span> 09:00 - 10:40</div>
-                <div class="course-title">Ağ Temelleri</div>
-                <div class="details">
-                    <div class="detail-item"><span class="icon">👤</span> T. DURAK</div>
-                    <div class="detail-item"><span class="icon">📍</span> BİL. LAB. 114</div>
-                </div>
-            </div>
-            <div class="class-card seo">
-                <div class="time"><span class="icon">🕒</span> 10:50 - 12:30</div>
-                <div class="course-title">SEO ve Analitik</div>
-                <div class="details">
-                    <div class="detail-item"><span class="icon">👤</span> G. E. KAHYA</div>
-                    <div class="detail-item"><span class="icon">📍</span> BİL. LAB. 114</div>
-                </div>
-            </div>
-            <div class="class-card advanced">
-                <div class="time"><span class="icon">🕒</span> 14:25 - 17:00</div>
-                <div class="course-title">İleri Programlama</div>
-                <div class="details">
-                    <div class="detail-item"><span class="icon">👤</span> G. E. KAHYA</div>
-                    <div class="detail-item"><span class="icon">📍</span> BİL. LAB. 114</div>
-                </div>
-            </div>
-        </div>
+        themeToggleBtn.addEventListener('click', () => {
+            const activeTheme = document.documentElement.getAttribute('data-theme');
+            const nextTheme = activeTheme === 'dark' ? 'light' : 'dark';
 
-    </div>
-</div>
+            document.documentElement.setAttribute('data-theme', nextTheme);
+            localStorage.setItem('wtk_theme', nextTheme);
+            updateThemeUI(nextTheme);
+        });
+
+        // Otomatik Bugün Vurgusu (Pazartesi=1 ... Cuma=5)
+        const todayIndex = new Date().getDay();
+        if (todayIndex >= 1 && todayIndex <= 5) {
+            const todayColumn = document.querySelector(`.day-column[data-day="${todayIndex}"]`);
+            if (todayColumn) {
+                todayColumn.classList.add('today');
+            }
+        }
+    </script>
 
 </body>
+
 </html>
